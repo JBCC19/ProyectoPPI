@@ -1,0 +1,127 @@
+-- BASE DE DATOS PPI
+
+-- TABLA USUARIOS
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    correo VARCHAR(100),
+    contrasena VARCHAR(50),
+    rol VARCHAR(50)
+);
+
+-- TABLA PROVINCIAS
+CREATE TABLE provincias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_provincia VARCHAR(75)
+);
+
+-- TABLA CIUDAD-CANTON
+CREATE TABLE ciudad_canton (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_cc VARCHAR(75),
+    provincia_id_fk INT,
+    FOREIGN KEY (provincia_id_fk) REFERENCES provincias(id)
+);
+
+-- TABLA CATEGORIAS
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    categoria_nombre VARCHAR(255)
+);
+
+
+-- TABLA SITIOS
+CREATE TABLE sitios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100),
+    descripcion VARCHAR(100),
+    contenido TEXT,
+    img LONGBLOB DEFAULT NULL,
+    estado VARCHAR(50),
+    provincias_id_fk INT,
+    ciudad_canton_id_fk INT,
+    usuarios_id_fk INT,
+    categorias_id_fk INT,
+    FOREIGN KEY (provincias_id_fk) REFERENCES provincias(id),
+    FOREIGN KEY (ciudad_canton_id_fk) REFERENCES ciudad_canton(id),
+    FOREIGN KEY (usuarios_id_fk) REFERENCES usuarios(id),
+    FOREIGN KEY (categorias_id_fk) REFERENCES categorias(id)
+);
+
+-- INSERCIONES
+INSERT INTO provincias (nombre_provincia) VALUES ('Azuay');
+INSERT INTO provincias (nombre_provincia) VALUES ('Bolívar');
+INSERT INTO provincias (nombre_provincia) VALUES ('Cañar');
+INSERT INTO provincias (nombre_provincia) VALUES ('Carchi');
+INSERT INTO provincias (nombre_provincia) VALUES ('Chimborazo');
+INSERT INTO provincias (nombre_provincia) VALUES ('Cotopaxi');
+INSERT INTO provincias (nombre_provincia) VALUES ('El Oro');
+INSERT INTO provincias (nombre_provincia) VALUES ('Esmeraldas');
+INSERT INTO provincias (nombre_provincia) VALUES ('Galápagos');
+INSERT INTO provincias (nombre_provincia) VALUES ('Guayas');
+INSERT INTO provincias (nombre_provincia) VALUES ('Imbabura');
+INSERT INTO provincias (nombre_provincia) VALUES ('Loja');
+INSERT INTO provincias (nombre_provincia) VALUES ('Los Ríos');
+INSERT INTO provincias (nombre_provincia) VALUES ('Manabí');
+INSERT INTO provincias (nombre_provincia) VALUES ('Morona Santiago');
+INSERT INTO provincias (nombre_provincia) VALUES ('Napo');
+INSERT INTO provincias (nombre_provincia) VALUES ('Orellana');
+INSERT INTO provincias (nombre_provincia) VALUES ('Pastaza');
+INSERT INTO provincias (nombre_provincia) VALUES ('Pichincha');
+INSERT INTO provincias (nombre_provincia) VALUES ('Santa Elena');
+INSERT INTO provincias (nombre_provincia) VALUES ('Santo Domingo de los Tsáchilas');
+INSERT INTO provincias (nombre_provincia) VALUES ('Sucumbíos');
+INSERT INTO provincias (nombre_provincia) VALUES ('Tungurahua');
+INSERT INTO provincias (nombre_provincia) VALUES ('Zamora Chinchipe');
+
+-- ESTOS SON EJEMPLOS 
+-- Azuay
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Cuenca', 1);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Gualaceo', 1);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Santa Isabel', 1);
+
+-- El Oro
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Machala', 7);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Pasaje', 7);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Santa Rosa', 7);
+
+-- Cañar
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Azogues', 3);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Cañar', 3);
+INSERT INTO ciudad_canton (nombre_cc, provincia_id_fk) VALUES ('Biblián', 3);
+
+
+INSERT INTO categorias (categoria_nombre) VALUES ('Servicio Técnico');
+INSERT INTO categorias (categoria_nombre) VALUES ('Ferreterías');
+INSERT INTO categorias (categoria_nombre) VALUES ('Farmacias');
+INSERT INTO categorias (categoria_nombre) VALUES ('Restaurantes');
+INSERT INTO categorias (categoria_nombre) VALUES ('Supermercados');
+INSERT INTO categorias (categoria_nombre) VALUES ('Salones de Belleza');
+INSERT INTO categorias (categoria_nombre) VALUES ('Gasolineras');
+INSERT INTO categorias (categoria_nombre) VALUES ('Bancos');
+INSERT INTO categorias (categoria_nombre) VALUES ('Tiendas de Ropa');
+INSERT INTO categorias (categoria_nombre) VALUES ('Cafeterías');
+INSERT INTO categorias (categoria_nombre) VALUES ('Escuelas');
+INSERT INTO categorias (categoria_nombre) VALUES ('Parques');
+INSERT INTO categorias (categoria_nombre) VALUES ('Hospitales');
+
+
+
+INSERT INTO sitios (titulo, descripcion, contenido, img, estado, provincias_id_fk, ciudad_canton_id_fk, usuarios_id_fk, categorias_id_fk) 
+VALUES ('SitrayasTech', 'Servicio técnico impresoras, consolas y pc', 'Nos caracterizamos por cumplir con nuestra labor de la mejor manera poniendo al cliente como pilar primordial, y usando nuestros principios éticos.', NULL, 'Activo', 7, 5, 1, 1);
+
+-- Esta de arreglar aun 
+
+INSERT INTO sitios (titulo, descripcion, contenido, img, estado, provincias_id_fk, ciudad_canton_id_fk, usuarios_id_fk, categorias_id_fk) 
+VALUES ('TecnoExpert', 'Reparación de dispositivos electrónicos', 'Nos especializamos en la reparación de una amplia gama de dispositivos electrónicos, incluyendo teléfonos móviles, tabletas y ordenadores. Nuestro equipo de técnicos altamente capacitados garantiza un servicio rápido y confiable.', NULL, 'Activo', 3, 2, 2, 1);
+
+INSERT INTO sitios (titulo, descripcion, contenido, img, estado, provincias_id_fk, ciudad_canton_id_fk, usuarios_id_fk, categorias_id_fk) 
+VALUES ('FerreTec', 'Suministros para el hogar y herramientas', 'Ofrecemos una amplia selección de herramientas y suministros para el hogar de alta calidad. Desde materiales de construcción hasta artículos de jardinería, tenemos todo lo que necesitas para tus proyectos en el hogar.', NULL, 'Activo', 8, 4, 3, 2);
+
+INSERT INTO sitios (titulo, descripcion, contenido, img, estado, provincias_id_fk, ciudad_canton_id_fk, usuarios_id_fk, categorias_id_fk) 
+VALUES ('PharmaVida', 'Productos farmacéuticos y cuidado de la salud', 'En PharmaVida, nos dedicamos a proporcionar productos farmacéuticos de calidad y servicios de salud superiores. Nuestro equipo de farmacéuticos altamente capacitados está aquí para ayudarte a encontrar lo que necesitas.', NULL, 'Activo', 5, 3, 1, 4);
+
+INSERT INTO sitios (titulo, descripcion, contenido, img, estado, provincias_id_fk, ciudad_canton_id_fk, usuarios_id_fk, categorias_id_fk) 
+VALUES ('TechZone', 'Especialistas en tecnología y gadgets', 'En TechZone, nos apasiona la tecnología y estamos aquí para ayudarte a encontrar los gadgets más innovadores y emocionantes del mercado. Ya sea que estés buscando un nuevo smartphone, una laptop potente o accesorios para tu dispositivo, ¡tenemos lo que necesitas!', NULL, 'Activo', 6, 1, 5, 1);
+
+
